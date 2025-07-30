@@ -1,0 +1,17 @@
+{% extends 'blogApp/base.html'%}
+{% block body_block %}
+
+<div class="divCenter">
+    <h1>ADD COMMENT</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input clas="btn btn-info" type="submit" value="Submit" />
+
+    </form>
+
+
+</div>
+
+
+{% endblock %}

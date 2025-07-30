@@ -1,0 +1,16 @@
+{% extends 'blogApp/base.html'%}
+{% block body_block %}
+
+<div class="divCenter">
+    <h1>DELETE POST</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <input clas="btn btn-info" type="submit" value="Submit" />
+
+    </form>
+ 
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Page Title</title>
+
+    <!-- Bootstrap links -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- Medium-editor  -->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- google fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+     <nav class="navbar navbar-default">
+         <div class="container-fluid">
+
+             <ul class="nav navbar-nav">
+                 
+                     <li class="active"><a href="{% url 'blog_app:post-list' %}">My Blogs</a></li>
+                     <li ><a href="{% url 'blog_app:about' %}">About</a></li>
+                     <li><a href="https://www.github.com/">Github</a></li>
+                     <li><a href="https://www.linkedin.com/">Linkedin</a></li>
+                 
+                 {% if user.is_authenticated %}
+                      
+                      <li ><a href="{% url 'blog_app:create-post' %}">New Post</a></li>
+                      <li ><a href="{% url 'blog_app:draft-list' %}">Drafts</a></li>
+                     <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                      {% csrf_token %}
+                      <button type="submit" style="background:none; border:none; padding:0; cursor:pointer; color:#6e6767; font: inherit;margin-top:15px">
+                        Logout
+                      </button>
+                    </form>
+                 {% else %}
+                    <li ><a href="{% url 'login' %}">Login</a></li>
+
+                 {% endif %}
+             </ul>
+         </div>
+    </nav>
+<div class="container loader">
+        {% block body_block %}
+        {% endblock %}
+</div>
+</body>
+</html>

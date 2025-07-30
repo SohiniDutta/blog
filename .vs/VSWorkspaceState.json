@@ -2,8 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\blogProject",
-    "\\blogProject\\blogApp"
+    "\\blogProject\\blogApp",
+    "\\blogProject\\blogApp\\static",
+    "\\blogProject\\blogApp\\static\\css",
+    "\\blogProject\\blogApp\\templates",
+    "\\blogProject\\blogApp\\templates\\blogApp",
+    "\\blogProject\\blogApp\\templates\\registration",
+    "\\blogProject\\blogProject"
   ],
-  "SelectedNode": "\\blogProject\\blogApp\\forms.py",
+  "SelectedNode": "\\blogProject\\blogApp\\views.py",
   "PreviewInSolutionExplorer": false
 }
