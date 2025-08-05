@@ -10,6 +10,7 @@ class postModel(models.Model):
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     title  = models.CharField(max_length=255)
     text   = models.TextField()
+    image  = models.ImageField(upload_to='uploads/', blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now())
     publish_date = models.DateTimeField(blank=True,null=True)
 

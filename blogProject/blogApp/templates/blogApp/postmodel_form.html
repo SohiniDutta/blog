@@ -1,18 +1,18 @@
 {% extends 'blogApp/base.html'%}
 {% block body_block %}
 
-<div class="divCenter">
+<div class="divCenter loader" style="padding:10px">
     <h1>NEW POST</h1>
-   <form  method="POST">
-       {% csrf_token %}
-       {{form.as_p}}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
 
-       <input clas="btn btn-info" type="submit" value="Submit" />
+        <input clas="btn btn-info" type="submit" value="Submit" />
 
-   </form>
-<script>
-    var editor = new MediumEditor('.editable');
-</script>
+    </form>
+    <script>
+        var editor = new MediumEditor('.editable');
+    </script>
 
 
 

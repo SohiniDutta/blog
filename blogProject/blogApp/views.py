@@ -7,6 +7,12 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+import openai
+from django.http import JsonResponse,HttpResponseNotAllowed
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.conf import settings
+
 # Create your views here.
 class aboutView(TemplateView):
     template_name='blogApp/about.html'
@@ -51,7 +57,7 @@ class draftListView(LoginRequiredMixin,ListView):
 
 # Function Based Views For All The Actions
 
-@login_required
+
 def add_comment_post(request,pk):
     if request.method == 'POST':
         post = get_object_or_404(postModel,pk=pk)
@@ -84,4 +90,39 @@ def publish_post(request,pk):
     post = get_object_or_404(postModel,pk=pk)
     post.publish()
     return redirect('blog_app:post-list')
+
+#OPEN AI API INTEGRATE
+openai.api_key = settings.OPENAI_API_KEY
+
+
+def chat_page(request):
+    # Just render the chat page template (GET)
+    return render(request, 'blogApp/chat.html')
+
+@csrf_exempt
+def chat_with_gpt(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user_message = data.get('message', '')
+
+          
+
+            response = openai.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": user_message}
+            ]
+        )
+
+            reply = response.choices[0].message.content
+            return JsonResponse({'reply': reply})
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    else:
+        # Return 405 Method Not Allowed for other HTTP methods
+        return HttpResponseNotAllowed(['POST'])
    

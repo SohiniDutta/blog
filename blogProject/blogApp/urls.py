@@ -15,4 +15,7 @@ urlpatterns = [
     path('post/<int:pk>/approve-comment', views.approve_comment,name='approve-comment' ),
     path('post/<int:pk>/reject-comment', views.reject_comment,name='reject-comment' ),
     path('post/<int:pk>/publish-post', views.publish_post,name='publish-post' ),
+    path('chat-api/', views.chat_with_gpt, name='chat_api'),
+    path('chat/', views.chat_page, name='chat'),
 ]
+

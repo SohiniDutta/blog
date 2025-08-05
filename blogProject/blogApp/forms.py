@@ -4,7 +4,7 @@ from blogApp.models import postModel,commentModel
 class postForm(forms.ModelForm):
     class Meta():
         model  = postModel
-        fields = ('author','title','text')
+        fields = ('author','title','text','image')
 
         widgets = {
                      'title':forms.TextInput(attrs={'class':'textinputclass'}),

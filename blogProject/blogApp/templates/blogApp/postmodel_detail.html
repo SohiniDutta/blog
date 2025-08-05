@@ -1,38 +1,68 @@
 {% extends 'blogApp/base.html'%}
 {% block body_block %}
 
-<div class="divCenter">
-    <h1>{{post_detail.title}}</h1>
-    <h4>{{post_detail.text|safe}}</h4>
+{% load static %}
+
+<div class="divCenter container mt-5" style="max-width: 800px; margin: auto; font-family: Arial, sans-serif;">
+
+
+
+    <!-- If Image there show image -->
+    {% if post_detail.image %}
+    <div class="text-center mb-4">
+        <img style="display: block; margin: auto;" src="{{ post_detail.image.url }}" width=100% height=200px alt="post image" />
+    </div>
+    {% endif %}
+    <h1 class="text-center mb-3">{{post_detail.title|linebreaksbr }}</h1>
+    {{post_detail.text|safe|linebreaksbr }}
+
+
 
     <!-- Checking if publish date is there..if not then adding link to publish it-->
     {% if post_detail.publish_date %}
+    <div class="text-center mb-4">
+        <h4 style="color: #777;">{{post_detail.publish_date|date:'D M Y'}}</h4>
 
-    <h4>{{post_detail.publish_date|date:'D M Y'}}</h4>
-    {% else %}
-    <a href="{% url 'blog_app:publish-post' post_detail.id%}">Publish</a>
-    {% endif %}
+        {% else %}
+        <a style="display: block; text-align: center;" href="{% url 'blog_app:publish-post' post_detail.id%}">Publish</a>
+        {% endif %}
+    </div>
+
 
     <!-- Checking if logged in then Edit/Delete is Available-->
     {% if user.is_authenticated %}
-    <a href="{% url 'blog_app:update-post' post_detail.pk%}"><i class="fa fa-edit"></i>Edit</a>
-    <a href="{% url 'blog_app:delete-post' post_detail.pk%}"><i class="fa fa-trash"></i>Delete</a>
-
+    <div class="text-center mb-4">
+        <a style="display: block; text-align: center;" href="{% url 'blog_app:update-post' post_detail.pk%}"><i class="fa fa-edit"></i>Edit</a>
+        <a style="display: block; text-align: center;" href="{% url 'blog_app:delete-post' post_detail.pk%}"><i class="fa fa-trash"></i>Delete</a>
+    </div>
     {% endif %}
 
     <hr />
-    <a href="{% url 'blog_app:add-comment' post_detail.pk%}"><i class="fa fa-plus"></i>Add Comment</a>
-
+    <div class="text-center mb-5">
+        <a class="btn btn-success" href="{% url 'blog_app:add-comment' post_detail.pk%}"><i class="fa fa-plus"></i>Add Comment</a>
+    </div>
     {% for comment in post_detail.comments.all %}
-    {% if user.is_authenticated  %}
-            {% if not comment.approved_stat %}
-                <a href="{% url 'blog_app:approve-comment' comment.id%}"><i class="fa fa-tick"></i>Approve Comment</a>
-                <a href="{% url 'blog_app:reject-comment' comment.id%}"><i class="fa fa-trash"></i>Remove Comment</a>
-            {% endif %}
-    {% endif %}
-    <p>{{comment.text|safe}}</p>
-    <p>{{comment.created_date|date:'D M Y'}}</p>
-    <p>Comment By : {{comment.author}}</p>
+    <div class="container">
+        {% if user.is_authenticated  %}
+        {% if not comment.approved_stat %}
+        <a class="btn btn-info" href="{% url 'blog_app:approve-comment' comment.id%}" title="Approve Comment"><i class="fa fa-check"></i></a>
+        <a class="btn btn-danger" href="{% url 'blog_app:reject-comment' comment.id%}" title="Remove Comment"><i class="fa fa-close"></i></a>
+        {% endif %}
+        <p>{{comment.text|safe|linebreaksbr }}</p>
+        <p>{{comment.created_date|date:'D M Y'}}</p>
+        <p>Comment By : {{comment.author}}</p>
+
+        {% else %}
+        {% if  comment.approved_stat %}
+        <p>{{comment.text|safe|linebreaksbr }}</p>
+        <p>{{comment.created_date|date:'D M Y'}}</p>
+        <p>Comment By : {{comment.author}}</p>
+        {% endif %}
+        {% endif %}
+
+
+
+    </div>
     {% endfor %}
 
 
@@ -40,4 +70,4 @@
 </div>
 
 
-{% endblock %}
+    {% endblock %}

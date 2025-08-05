@@ -1,0 +1,32 @@
+<div style="max-width: 600px; margin: auto; padding: 20px;">
+    <h2>Chat with GPT</h2>
+    <div id="chatbox" style="border: 1px solid #ccc; padding: 15px; height: 300px; overflow-y: scroll; background: #f9f9f9;"></div>
+    <input type="text" id="message" placeholder="Type your message..." style="width: 80%;">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+function sendMessage() {
+    const message = document.getElementById("message").value;
+    if (!message.trim()) return;
+
+    const chatbox = document.getElementById("chatbox");
+    chatbox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+    document.getElementById("message").value = '';
+
+    fetch("/chat-api/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.reply) {
+            chatbox.innerHTML += `<p><strong>Bot:</strong> ${data.reply}</p>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        } else {
+            chatbox.innerHTML += `<p><em>Error getting reply.</em></p>`;
+        }
+    });
+}
+</script>

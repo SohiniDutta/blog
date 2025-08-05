@@ -3,17 +3,24 @@ h1 {
     color: rgba(0,0,0,0.7);
     position: relative;
     top: calc(50% - 80px);
-    left: calc(50% - 130px);
+   
+}
+h2 {
+    text-align: center;
 }
 
-
 .loader {
-
     filter: hue-rotate(0deg);
-    background: linear-gradient(45deg,#0f8,#08f);
+    /* background: linear-gradient(45deg,#0f8,#08f);*/
+    background: linear-gradient(45deg, #69d2a1, #aecfec);
     animation: hue 10000ms infinite linear;
 }
 
+.mainDiv {
+    margin-left: 10px!important;
+    margin-right:10px!important;
+    width:100%!important
+}
    
 
 @keyframes spinify {
@@ -55,6 +62,43 @@ h1 {
 }
 
 .alink{
-    font-size:40px;
+    font-size:27px;
    
 }
+
+.login-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin:0px auto;
+}
+
+    .login-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.logbutton {
+    width: 100%;
+    padding: 10px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    .logbutton:hover {
+        background: #45a049;
+    }

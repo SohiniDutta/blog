@@ -1,18 +1,27 @@
 {% extends 'blogApp/base.html'%}
 {% block body_block %}
 
-<div class="divCenter">
-    <h1>POSTS</h1>
+
+<div class="loader" style="padding:10px">
+
+    <h1 style="text-align:center"><u>BLOG POSTS</u></h1>
     {% for post in posts %}
-   
-     <a class="alink" href="{% url 'blog_app:post-detail' post.id%}">{{post.title}}</a>
-     <p>Publish Date:{{post.publish_date|date:'D M Y'}}</p>
+
+
+
+    <a class="alink" href="{% url 'blog_app:post-detail' post.id%}">{{post.title}}</a>
+    <p>Publish Date:{{post.publish_date|date:'D M Y'}}</p>
 
     <!-- Parenthesis () in function call not allowed in django templates so just call it -->
-     <a href="{% url 'blog_app:post-detail' post.id%}">Comments : {{post.approved_comments.count}}</a>
+    <a href="{% url 'blog_app:post-detail' post.id%}">Comments : {{post.approved_comments.count}}</a>
     <p>By : {{user.username}}</p>
+    <hr />
+
     {% endfor %}
 </div>
 
 
+
 {% endblock %}
+
+

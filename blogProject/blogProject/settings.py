@@ -123,6 +123,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS =[STATIC_DIR]
 
+MEDIA_URL  = '/media/'
+MEDIA_ROOT = BASE_DIR/'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -130,3 +133,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+
+#OPEN AI API KEY
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Loads variables from .env into environment variables
+
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
